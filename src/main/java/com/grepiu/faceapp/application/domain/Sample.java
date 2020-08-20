@@ -1,7 +1,13 @@
 package com.grepiu.faceapp.application.domain;
 
-import java.util.List;
-
 public class Sample {
-  private List<Raw> raw;
+  private String message;
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
 }

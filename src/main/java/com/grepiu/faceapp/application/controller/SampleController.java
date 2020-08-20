@@ -4,8 +4,9 @@ import com.grepiu.faceapp.application.domain.Sample;
 import com.grepiu.faceapp.application.service.FirebaseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class SampleController {
 
   private final FirebaseService firebaseService;
