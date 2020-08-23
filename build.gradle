@@ -12,12 +12,28 @@ repositories {
 	mavenCentral()
 }
 
+springBoot  {
+	buildInfo()
+}
+
 dependencies {
 	// spring boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-devtools'
 
 	// google firebase sdk
-	implementation 'com.google.firebase:firebase-admin:6.8.1'
+	implementation 'com.google.firebase:firebase-admin:6.16.0'
+
+	// open api
+	compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.4.4'
+
+	compileOnly 'org.projectlombok:lombok:1.18.12'
+	annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+	testCompile group: 'org.springdoc', name: 'springdoc-openapi-webmvc-core', version: '1.4.4'
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.12'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

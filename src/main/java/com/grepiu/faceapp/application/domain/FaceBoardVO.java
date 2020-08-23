@@ -1,6 +1,11 @@
 package com.grepiu.faceapp.application.domain;
 
-public class Sample {
+/**
+ *
+ * 등록된 정보를 처리 한다.
+ *
+ */
+public class FaceBoardVO {
   private String message;
 
   public String getMessage() {

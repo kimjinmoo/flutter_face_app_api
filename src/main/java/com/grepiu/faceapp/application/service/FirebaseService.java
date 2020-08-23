@@ -1,9 +1,13 @@
 package com.grepiu.faceapp.application.service;
 
-import com.grepiu.faceapp.application.domain.Sample;
-import java.util.List;
+import com.grepiu.faceapp.application.domain.FaceBoardVO;
 
+/**
+ *
+ * 파이어 베이스 데이터 베이스를 처리한다.
+ *
+ */
 public interface FirebaseService {
 
-  public Sample findSampleAll() throws Exception;
+  public FaceBoardVO findById(String id) throws Exception;
 }
