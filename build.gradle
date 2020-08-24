@@ -24,6 +24,10 @@ dependencies {
 	// google firebase sdk
 	implementation 'com.google.firebase:firebase-admin:6.16.0'
 
+	// aws
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.847')
+	implementation 'com.amazonaws:aws-java-sdk-s3'
+
 	// open api
 	compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.4.4'
 
