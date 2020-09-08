@@ -13,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,8 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping(value = "/prototype")
 @RequiredArgsConstructor
 public class PrototypeController {
-
-  private final FirebaseService firebaseService;
 
   private final PrototypeService prototypeService;
 
@@ -37,9 +37,9 @@ public class PrototypeController {
           @ApiResponse(responseCode = "200", description = "프로세스 처리 완료")
       }
   )
-  @PostMapping("/engine/images/upload")
+  @PostMapping(value = "/engine/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<FaceResultVO> upload(
-      @RequestParam("images") MultipartFile images
+      @RequestParam("file") MultipartFile images
   ) {
     return ResponseEntity.ok().body(prototypeService.executeEngine(images));
   }
@@ -48,8 +48,8 @@ public class PrototypeController {
       summary = "처리 이미지 다시 보기",
       description = "이미지 처리된 과거 데이터를 불러온다.",
       tags = "프로토타입")
-  @GetMapping(value = "/engine/photos/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<FaceBoardVO> findById(@PathVariable("id") String id) throws Exception {
-    return ResponseEntity.ok(firebaseService.findById(id));
+  @GetMapping(value = "/image/{fileName}", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<String> findById(@PathVariable("fileName") String fileName) throws Exception {
+    return ResponseEntity.ok(prototypeService.fetchImageUrl(fileName));
   }
 }

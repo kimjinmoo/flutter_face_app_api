@@ -18,4 +18,13 @@ public interface PrototypeService {
    * @return FaceResultVO 객체
    */
   public FaceResultVO executeEngine(MultipartFile file);
+
+  /**
+   *
+   * 이미지를 불러온다.
+   *
+   * @param fileName 파일명
+   * @return 경로
+   */
+  public String fetchImageUrl(String fileName);
 }
