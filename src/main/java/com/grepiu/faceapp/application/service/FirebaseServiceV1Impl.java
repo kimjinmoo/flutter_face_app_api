@@ -4,8 +4,10 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
 import com.grepiu.faceapp.application.domain.FaceBoardVO;
+import java.util.HashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +32,17 @@ public class FirebaseServiceV1Impl implements FirebaseService {
     DocumentReference documentReference = firestore.collection(COL_NAME).document(id);
     ApiFuture<DocumentSnapshot> apiFuture = documentReference.get();
     DocumentSnapshot documentSnapshot = apiFuture.get();
-    FaceBoardVO samples = new FaceBoardVO();
     if(documentSnapshot.exists()) {
-      samples = documentSnapshot.toObject(FaceBoardVO.class);
-      return samples;
+      return documentSnapshot.toObject(FaceBoardVO.class);
     }
     return null;
+  }
+
+  @Override
+  public int save(FaceBoardVO vo) throws Exception {
+    Firestore firestore = FirestoreClient.getFirestore();
+    ApiFuture<WriteResult> future = firestore.collection(COL_NAME).document(vo.getId()).set(vo);
+    log.info( "update tile : {}", future.get().getUpdateTime());
+    return 1;
   }
 }

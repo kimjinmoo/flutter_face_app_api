@@ -40,7 +40,7 @@ public class PrototypeController {
   @PostMapping(value = "/engine/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<FaceResultVO> upload(
       @RequestParam("file") MultipartFile images
-  ) {
+  ) throws Exception {
     return ResponseEntity.ok().body(prototypeService.executeEngine(images));
   }
 
@@ -48,8 +48,8 @@ public class PrototypeController {
       summary = "처리 이미지 다시 보기",
       description = "이미지 처리된 과거 데이터를 불러온다.",
       tags = "프로토타입")
-  @GetMapping(value = "/image/{fileName}", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<String> findById(@PathVariable("fileName") String fileName) throws Exception {
-    return ResponseEntity.ok(prototypeService.fetchImageUrl(fileName));
+  @GetMapping(value = "/image/{id}")
+  public ResponseEntity<Object> findById(@PathVariable("id") String id) throws Exception {
+    return ResponseEntity.ok(prototypeService.fetchFaceImageById(id));
   }
 }

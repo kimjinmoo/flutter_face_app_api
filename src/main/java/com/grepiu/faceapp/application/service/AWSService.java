@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface AWSService {
 
-  public AWSFileUploadVO uploadFile(final MultipartFile multipartFile);
+  AWSFileUploadVO uploadFile(final String prefixPath, final MultipartFile multipartFile);
 
-  public AWSImageInfoVO fetchImage(final String fileName);
+  AWSImageInfoVO fetchFaceImage(final String fileName);
 }

@@ -1,5 +1,6 @@
 package com.grepiu.faceapp.application.service;
 
+import com.grepiu.faceapp.application.domain.FaceBoardVO;
 import com.grepiu.faceapp.application.domain.FaceResultVO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,14 +18,14 @@ public interface PrototypeService {
    * @param file MultipartFile 객체
    * @return FaceResultVO 객체
    */
-  public FaceResultVO executeEngine(MultipartFile file);
+  FaceResultVO executeEngine(MultipartFile file) throws Exception;
 
   /**
    *
    * 이미지를 불러온다.
    *
-   * @param fileName 파일명
+   * @param id DB ID
    * @return 경로
    */
-  public String fetchImageUrl(String fileName);
+  FaceBoardVO fetchFaceImageById(String id) throws Exception;
 }

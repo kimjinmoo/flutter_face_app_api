@@ -14,7 +14,7 @@ import lombok.Data;
 @Builder
 @Data
 public class FaceResultVO {
-
+  private String id;
   private String imageUrl;
   private String resultText;
 }
