@@ -2,6 +2,7 @@ package com.grepiu.faceapp.application.service;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.grepiu.faceapp.application.domain.AWSFileUploadVO;
 import com.grepiu.faceapp.application.domain.AWSImageInfoVO;
@@ -9,7 +10,6 @@ import com.grepiu.faceapp.extend.S3ServiceClient;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,12 +38,15 @@ public class AWSServiceV1Impl implements AWSService {
   public AWSFileUploadVO uploadFile(final String prefixPath, final MultipartFile multipartFile) {
     try {
       final File file = convertMultiPartFileToFile(multipartFile);
-      return AWSFileUploadVO
+      AWSFileUploadVO awsFile =  AWSFileUploadVO
           .builder()
           .fileUrl(uploadFileToS3Bucket(bucket, prefixPath, file))
           .isSuccess(true)
           .message("정상적으로 업로드 하였습니다.")
           .build();
+      // 처리 후 파일은 삭제한다.
+      file.delete();
+      return awsFile;
     } catch (final AmazonServiceException ex) {
       log.info("file upload fail");
       log.error("error : {}", ex.getMessage());
@@ -98,5 +101,15 @@ public class AWSServiceV1Impl implements AWSService {
         .builder()
         .imageUrl(amazonS3.getUrl(bucket, S3ServiceClient.FACE.getServicePath()+fileName).toString())
         .build();
+  }
+
+  @Override
+  public void deleteFaceImage(String prefixPath, String fileName) {
+    log.info("delete path : {}", fileName.substring(fileName.indexOf(prefixPath)));
+    final DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(
+        bucket,
+        fileName.substring(fileName.indexOf(prefixPath))
+        );
+    amazonS3.deleteObject(deleteObjectRequest);
   }
 }

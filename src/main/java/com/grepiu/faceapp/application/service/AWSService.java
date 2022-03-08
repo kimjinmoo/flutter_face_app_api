@@ -15,4 +15,6 @@ public interface AWSService {
   AWSFileUploadVO uploadFile(final String prefixPath, final MultipartFile multipartFile);
 
   AWSImageInfoVO fetchFaceImage(final String fileName);
+
+  void deleteFaceImage(final String prefixPath, final String fileName);
 }

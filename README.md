@@ -5,3 +5,6 @@
 DB : firebase 사용
 
 저장소 : AWS s3 사용 
+
+시스템 등록
+/etc/systemd/system
